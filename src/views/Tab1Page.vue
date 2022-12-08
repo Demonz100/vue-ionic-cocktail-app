@@ -2,13 +2,13 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Tab 1</ion-title>
+        <ion-title>Random Drink</ion-title>
       </ion-toolbar>
     </ion-header>
 
     <ion-content v-if="state.isLoading">
       <div class="loadingCenter">
-        <ion-spinner color="success"></ion-spinner>
+        <ion-spinner color="primary"></ion-spinner>
       </div>
     </ion-content>
 
@@ -17,50 +17,19 @@
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
 
-      <ion-card>
-        <ion-img :src="state.drinks.strDrinkThumb" :alt="state.drinks.strDrink"></ion-img>
-        <ion-card-header>
-          <ion-card-subtitle>
-            {{ state.drinks.strCategory }} | Served In {{ state.drinks.strGlass }}
-          </ion-card-subtitle>
-          <ion-card-title>{{ state.drinks.strDrink }}</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <p>{{ state.drinks.strInstructions }}</p>
-
-          <ion-list>
-            <ion-list-header>
-              <ion-label>Ingredients</ion-label>
-            </ion-list-header>
-            <template v-for="i in 15" :key="i">
-              <ion-item v-if="state.drinks[`strIngredient${i}` as keyof Drink]">
-                <ion-label>
-                  {{ state.drinks[`strIngredient${i}` as keyof Drink] }} -
-                  <span v-if="state.drinks[`strMeasure${i}` as keyof Drink]">{{ state.drinks[`strMeasure${i}` as keyof
-                      Drink]
-                  }}</span>
-                </ion-label>
-              </ion-item>
-            </template>
-          </ion-list>
-        </ion-card-content>
-      </ion-card>
+      <drink-card :drink="state.drinks"></drink-card>
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { IonPage, IonList, IonListHeader, IonLabel, IonItem, IonRefresher, IonRefresherContent, IonHeader, IonToolbar, IonTitle, IonSpinner, IonContent, IonCard, IonCardHeader, IonImg, IonCardSubtitle, IonCardTitle, IonCardContent } from '@ionic/vue';
+import { IonPage, IonRefresher, IonRefresherContent, IonHeader, IonToolbar, IonTitle, IonSpinner, IonContent } from '@ionic/vue';
 import { reactive } from 'vue';
-import type { Drink } from '../Drink.Interface'
+import DrinkCard from '@/components/DrinkCard.vue'
+import { Drink } from '@/utils/Drink.interface';
 
-interface State {
-  drinks: Drink
-  isLoading: boolean
-}
-
-const state: State = reactive({
-  drinks: {},
+const state = reactive({
+  drinks: {} as Drink,
   isLoading: false
 })
 

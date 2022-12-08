@@ -5,16 +5,17 @@
         <ion-title>Search by Ingredients</ion-title>
       </ion-toolbar>
     </ion-header>
+
     <ion-content v-if="state.isLoading">
       <div class="loadingCenter">
-        <ion-spinner color="success"></ion-spinner>
+        <ion-spinner color="primary"></ion-spinner>
       </div>
     </ion-content>
 
     <ion-content v-else>
       <ion-list>
-        <ion-item v-for="ingredient in state.ingredients" :key="ingredient.strIngredient1" @click="$router.push(`/drink-by-ingredient/${ingredient.strIngredient1}`)">
-          <ion-avatar>
+        <ion-item v-for="ingredient in state.ingredients" :key="ingredient.strIngredient1" @click="$router.push(`/tabs/drink-by-ingredient/${ingredient.strIngredient1}`)">
+          <ion-avatar slot="start">
             <img :src="fetchIngredientsImage(ingredient.strIngredient1)">
           </ion-avatar>
           <ion-label>
@@ -33,13 +34,9 @@ import { reactive } from 'vue';
 interface Ingredient {
   strIngredient1 : string
 }
-interface State {
-  ingredients: Ingredient[]
-  isLoading: boolean
-}
 
-const state : State = reactive({
-  ingredients: [],
+const state = reactive({
+  ingredients: [] as Ingredient[],
   isLoading: false
 })
 
