@@ -4,14 +4,14 @@
       <ion-toolbar>
         <ion-title>Search Drinks</ion-title>
       </ion-toolbar>
-    </ion-header>
-    <ion-content :fullscreen="true">
       <ion-searchbar
         :animated="true"
         placeholder="Search for drinks"
         :debounce="500"
         @ionChange="(e) => fetchSearchResult(e.detail.value)"
       ></ion-searchbar>
+    </ion-header>
+    <ion-content :fullscreen="true">
       <ion-content v-if="state.isLoading">
         <div class="loadingCenter">
           <ion-spinner color="primary"></ion-spinner>
